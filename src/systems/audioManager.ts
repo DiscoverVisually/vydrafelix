@@ -1,3 +1,6 @@
+export class AudioManager {
+  private muted = false;
+  private ctx: AudioContext | null = null;
 import Phaser from 'phaser';
 
 export class AudioManager {
@@ -9,6 +12,18 @@ export class AudioManager {
     this.muted = muted;
   }
 
+  private getContext(): AudioContext | null {
+    if (typeof window === 'undefined') return null;
+    if (!this.ctx) {
+      const Ctx = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      this.ctx = Ctx ? new Ctx() : null;
+    }
+    return this.ctx;
+  }
+
+  private beep(freq: number, durationMs: number, volume = 0.03) {
+    if (this.muted) return;
+    const ctx = this.getContext();
   private beep(freq: number, durationMs: number, volume = 0.03) {
     if (this.muted) return;
     const ctx = this.scene.sound.context;
