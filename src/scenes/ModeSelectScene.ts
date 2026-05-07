@@ -1,0 +1,2 @@
+import { BaseScene } from './BaseScene';
+export class ModeSelectScene extends BaseScene{constructor(){super('mode');}create(){this.add.text(600,120,'Režim hry',{fontSize:'46px'}).setOrigin(0.5);this.button(600,250,'Dobrodružstvo',()=>this.scene.start('game',{mode:'adventure'}));this.button(600,340,'Nekonečný',()=>this.scene.start('game',{mode:'endless'}));this.button(600,430,'Späť',()=>this.scene.start('char'));}}

@@ -1,0 +1,1 @@
+export class SeededRandom{constructor(public seed=1337){} next(){this.seed=(this.seed*1664525+1013904223)>>>0;return this.seed/4294967296;} int(min:number,max:number){return Math.floor(this.next()*(max-min+1))+min;}}
