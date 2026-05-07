@@ -1,0 +1,11 @@
+# Fakty do hry (slovenčina)
+- Vydry sú cicavce.
+- Vydry majú hustú srsť, ktorá ich hreje.
+- Vydry majú plávacie blany.
+- Fúziky vydry cítia pohyb vody.
+- Vydra sa musí nadýchnuť nad hladinou.
+- Vydry jedia ryby, raky a mäkkýše.
+- Čisté rieky sú pre vydry dôležité.
+- Mláďa vydry sa volá šteniatko.
+- Niektoré vydry používajú kamene ako nástroj.
+- Vydry majú brlohy blízko vody.
