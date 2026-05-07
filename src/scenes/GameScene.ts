@@ -32,7 +32,7 @@ export class GameScene extends BaseScene {
   create() {
     this.save = loadSave();
     const otter = OTTERS.find(o => o.id === this.save.selectedOtter)!;
-    this.audio = new AudioManager();
+    this.audio = new AudioManager(this);
     this.audio.setMuted(this.save.settings.muted);
     this.health = otter.health + (otter.id === 'luna' ? 1 : 0);
     this.oxygen = 70 + otter.oxygen * 4;
@@ -60,13 +60,13 @@ export class GameScene extends BaseScene {
 
     this.physics.add.overlap(this.player, this.hazards, () => { this.health -= 0.8; this.audio.hit(); });
     this.physics.add.overlap(this.player, this.enemies, (_, e) => {
-      ((e as Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }).body).setVelocityX(-80);
+      (e.body as Phaser.Physics.Arcade.Body).setVelocityX(-80);
       this.health -= 0.6;
       this.audio.hit();
     });
     this.physics.add.overlap(this.pebbles, this.enemies, (p, e) => {
       p.destroy();
-      ((e as Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }).body).setVelocityX(-420);
+      (e.body as Phaser.Physics.Arcade.Body).setVelocityX(-420);
       this.score += 25;
     });
 
@@ -88,19 +88,19 @@ export class GameScene extends BaseScene {
 
   private spawn(kind: 'item' | 'hazard' | 'enemy', x: number, y: number) {
     if (kind === 'item') {
-      const c = this.add.circle(x, y, 12, 0xffdc7a); this.physics.add.existing(c); ((c as Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }).body).setVelocityX(-260); this.items.add(c); return;
+      const c = this.add.circle(x, y, 12, 0xffdc7a); this.physics.add.existing(c); (c.body as Phaser.Physics.Arcade.Body).setVelocityX(-260); this.items.add(c); return;
     }
     if (kind === 'hazard') {
-      const r = this.add.rectangle(x, y, 28, 28, 0x836953); this.physics.add.existing(r); ((r as Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }).body).setVelocityX(-280); this.hazards.add(r); return;
+      const r = this.add.rectangle(x, y, 28, 28, 0x836953); this.physics.add.existing(r); (r.body as Phaser.Physics.Arcade.Body).setVelocityX(-280); this.hazards.add(r); return;
     }
-    const e = this.add.ellipse(x, y, 40, 24, 0x8c5be8); this.physics.add.existing(e); ((e as Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }).body).setVelocityX(-240); this.enemies.add(e);
+    const e = this.add.ellipse(x, y, 40, 24, 0x8c5be8); this.physics.add.existing(e); (e.body as Phaser.Physics.Arcade.Body).setVelocityX(-240); this.enemies.add(e);
   }
 
   private throwPebble() {
     if (this.cool > 0) return;
     const peb = this.add.circle(this.player.x + 26, this.player.y, 8, 0x666);
     this.physics.add.existing(peb);
-    ((peb as Phaser.GameObjects.GameObject & { body: Phaser.Physics.Arcade.Body }).body).setVelocityX(460);
+    (peb.body as Phaser.Physics.Arcade.Body).setVelocityX(460);
     this.pebbles.add(peb);
     const otter = OTTERS.find(o => o.id === this.save.selectedOtter)!;
     this.cool = 700 - otter.pebble * 40;
