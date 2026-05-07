@@ -1,6 +1,12 @@
 export class AudioManager {
   private muted = false;
   private ctx: AudioContext | null = null;
+import Phaser from 'phaser';
+
+export class AudioManager {
+  private muted = false;
+
+  constructor(private scene: Phaser.Scene) {}
 
   setMuted(muted: boolean) {
     this.muted = muted;
@@ -18,6 +24,9 @@ export class AudioManager {
   private beep(freq: number, durationMs: number, volume = 0.03) {
     if (this.muted) return;
     const ctx = this.getContext();
+  private beep(freq: number, durationMs: number, volume = 0.03) {
+    if (this.muted) return;
+    const ctx = this.scene.sound.context;
     if (!ctx) return;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
